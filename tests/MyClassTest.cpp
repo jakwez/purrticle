@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include "MyClass.h"
 
 TEST(MyClassTest, DoStuffReturns42) {

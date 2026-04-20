@@ -1,5 +1,6 @@
 add_library(purrticle_lib STATIC
     MyClass.cpp
+    Vector2.cpp
 )
 
 target_include_directories(purrticle_lib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

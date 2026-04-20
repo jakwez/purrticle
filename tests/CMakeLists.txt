@@ -2,6 +2,7 @@ enable_testing()
 
 add_executable(purrticle_tests
     MyClassTest.cpp
+    Vector2Test.cpp
 )
 
 target_include_directories(purrticle_tests PRIVATE ${CMAKE_SOURCE_DIR}/src)
