@@ -5,8 +5,7 @@ add_executable(purrticle_tests
     Vector2Test.cpp
 )
 
-target_include_directories(purrticle_tests PRIVATE ${CMAKE_SOURCE_DIR}/src)
-target_link_libraries(purrticle_tests PRIVATE GTest::gtest_main purrticle_lib)
+target_link_libraries(purrticle_tests PRIVATE GTest::gtest_main purrticle_core)
 
 include(GoogleTest)
 gtest_discover_tests(purrticle_tests)
