@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug purrticle",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/debug/src/purrticle",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "Build debug"
+    },
+    {
+      "name": "Debug tests",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/debug/tests/purrticle_tests",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "Build debug"
+    }
+  ]
+}

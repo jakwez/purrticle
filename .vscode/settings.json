@@ -1,0 +1,14 @@
+{
+  "cmake.configurePreset": "debug",
+  "cmake.buildPreset": "debug",
+  "C_Cpp.clang_format_style": "file",
+  "C_Cpp.clang_format_path": "/opt/homebrew/bin/clang-format",
+  "[cpp]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+  "[c]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  }
+}

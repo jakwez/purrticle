@@ -1,0 +1,9 @@
+build/
+.cmake/
+CMakeUserPresets.json
+.vscode/ipch/
+.vscode/*.code-workspace
+.DS_Store
+coverage.info
+coverage_filtered.info
+.claude
