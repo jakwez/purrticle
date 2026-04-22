@@ -1,0 +1,12 @@
+namespace purrticle;
+
+struct Vector2 {
+    x: float;
+    y: float;
+}
+
+table Scene {
+    particles: [Vector2];
+}
+
+root_type Scene;

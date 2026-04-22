@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
 find_package(GTest REQUIRED)
+find_package(flatbuffers REQUIRED)
 
 option(ENABLE_COVERAGE "Enable coverage reporting" OFF)
 include(cmake/CodeCoverage.cmake)
