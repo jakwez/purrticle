@@ -1,7 +1,6 @@
 enable_testing()
 
 add_executable(purrticle_tests
-    MyClassTest.cpp
     Vector2Test.cpp
 )
 
