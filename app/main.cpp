@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QElapsedTimer>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
@@ -28,9 +29,13 @@ int main(int argc, char* argv[]) {
     qview->resize(extents.x + m, extents.y + m);
     qview->show();
 
+    QElapsedTimer elapsedTimer;
+    elapsedTimer.start();
     QTimer timer;
     QObject::connect(&timer, &QTimer::timeout, [&]() {
-        simulator.update(10.f / 1000.f);
+        qint64 deltaTimeMs = elapsedTimer.restart();
+        float deltaTimeSec = static_cast<float>(deltaTimeMs) / 1000.f;
+        simulator.update(deltaTimeSec);
         viewer.update();
     });
     timer.setInterval(10);
