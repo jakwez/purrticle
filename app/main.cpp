@@ -9,12 +9,19 @@
 #include <QTimer>
 #include <iostream>
 
+#include "Client.h"
 #include "Scene.h"
+#include "Server.h"
 #include "Simulator.h"
 #include "Viewer.h"
 
 int main(int argc, char* argv[]) {
     QApplication qapp(argc, argv);
+
+    Server server(12345);
+
+    QUrl url("ws://localhost:12345");
+    Client client(url);
 
     Vector2 extents(500, 500);
     Scene scene = Scene::createRandom(extents, 100);
@@ -37,6 +44,8 @@ int main(int argc, char* argv[]) {
         float deltaTimeSec = static_cast<float>(deltaTimeMs) / 1000.f;
         simulator.update(deltaTimeSec);
         viewer.update();
+
+        auto data = scene.serialize();
     });
     timer.setInterval(10);
     timer.start();
