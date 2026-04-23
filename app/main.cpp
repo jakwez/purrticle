@@ -4,38 +4,51 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QMainWindow>
+#include <QObject>
+#include <QTimer>
+#include <iostream>
 
 #include "Scene.h"
+#include "Simulator.h"
+#include "Viewer.h"
 
 int main(int argc, char* argv[]) {
-    QApplication a(argc, argv);
-
-    QGraphicsScene* qscene = new QGraphicsScene();
-    qscene->setSceneRect(0, 0, 500, 500);  // Define the boundaries
-
-    QGraphicsRectItem* rect = qscene->addRect(0, 0, 500, 500);
-    rect->setBrush(Qt::GlobalColor::lightGray);
-
-    // QGraphicsRectItem* rect = qscene->addRect(50, 50, 100, 60);
-    // rect->setBrush(Qt::GlobalColor::cyan);
-    // rect->setFlag(QGraphicsItem::ItemIsMovable);  // Magic! Now you can drag it.
-
-    // QGraphicsEllipseItem* circle = qscene->addEllipse(200, 150, 80, 80);
-    // circle->setBrush(Qt::GlobalColor::magenta);
-
-    QGraphicsView* view = new QGraphicsView(qscene);
-    view->setRenderHint(QPainter::Antialiasing);  // Makes things look smooth
-    view->setWindowTitle("Qt Graphics View Canvas");
-    view->resize(500, 500);
-    view->show();
+    QApplication qapp(argc, argv);
 
     Scene scene = Scene::createRandom(100, 0, 500);
 
-    for (int i = 0; i < scene.particles.size(); ++i) {
-        const Vector2& part = scene.particles[i];
-        QGraphicsEllipseItem* circle = qscene->addEllipse(part.x, part.y, 3, 3);
-        circle->setBrush(Qt::GlobalColor::magenta);
-    }
+    Viewer viewer(&scene);
 
-    return a.exec();
+    QGraphicsView* qview = new QGraphicsView(viewer.qscene());
+    qview->setRenderHint(QPainter::Antialiasing);  // Makes things look smooth
+    qview->setWindowTitle("Qt Graphics View Canvas");
+    qview->resize(500, 500);
+    qview->show();
+
+    // for (int i = 0; i < scene.particles.size(); ++i) {
+    //     const Vector2& part = scene.particles[i];
+    //     QGraphicsEllipseItem* circle = qscene->addEllipse(part.x, part.y, 3, 3);
+    //     circle->setBrush(Qt::GlobalColor::magenta);
+    // }
+
+    QTimer timer;
+    QObject::connect(&timer, &QTimer::timeout, [&]() {
+        std::cout << "." << std::endl;
+
+        // const auto& item = qscene->items().first();
+        // const auto items = qscene->items();
+        // for (auto* item : items) {
+        //     item->setX(item->x() + 1);
+        // }
+        // if (!items.isEmpty()) {
+        //     const auto first = items.first();
+        //     if (first) {
+        //         first->setX(first->x() + 1);
+        //     }
+        // }
+    });
+    timer.setInterval(10);
+    timer.start();
+
+    return qapp.exec();
 }

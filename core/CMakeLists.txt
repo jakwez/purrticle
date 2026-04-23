@@ -17,6 +17,7 @@ add_custom_target(flatbuffers_generated DEPENDS ${FLATBUFFERS_GENERATED_HEADER})
 add_library(purrticle_core STATIC
     Vector2.cpp
     Scene.cpp
+    Simulator.cpp
 )
 
 add_dependencies(purrticle_core flatbuffers_generated)
