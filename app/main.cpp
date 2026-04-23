@@ -15,7 +15,8 @@
 int main(int argc, char* argv[]) {
     QApplication qapp(argc, argv);
 
-    Scene scene = Scene::createRandom(100, 0, 500);
+    Vector2 extents(500, 500);
+    Scene scene = Scene::createRandom(extents, 100);
 
     Viewer viewer(&scene);
 

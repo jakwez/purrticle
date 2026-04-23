@@ -6,10 +6,14 @@
 
 class Scene {
    public:
+    Scene(const Vector2& extents);
     std::vector<Vector2> particles;
-
-    static Scene createRandom(size_t numParticles, float min, float max);
+    const Vector2& extents() const { return _extents; }
+    static Scene createRandom(const Vector2& extents, size_t numParticles);
 
     std::vector<uint8_t> serialize() const;
     static Scene deserialize(const uint8_t* data, size_t size);
+
+   private:
+    Vector2 _extents;
 };

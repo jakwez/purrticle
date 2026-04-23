@@ -6,6 +6,7 @@ struct Vector2 {
 }
 
 table Scene {
+    extents: Vector2;
     particles: [Vector2];
 }
 

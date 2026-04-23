@@ -4,16 +4,21 @@
 
 #include "scene_generated.h"
 
-Scene Scene::createRandom(size_t numParticles, float mim, float max) {
+Scene::Scene(const Vector2& extents) : _extents(extents) {
+    //
+}
+
+Scene Scene::createRandom(const Vector2& extents, size_t numParticles) {
     std::random_device rd;
     // std::mt19937 gen(1850103);
     std::mt19937 gen(rd());
-    std::uniform_real_distribution dist(mim, max);
-    Scene scene;
+    std::uniform_real_distribution distX(0.f, extents.x);
+    std::uniform_real_distribution distY(0.f, extents.y);
+    Scene scene(extents);
     scene.particles.reserve(numParticles);
     for (size_t i = 0; i < numParticles; i++) {
-        float x = dist(gen);
-        float y = dist(gen);
+        float x = distX(gen);
+        float y = distY(gen);
         scene.particles.emplace_back(x, y);
     }
 
@@ -30,8 +35,10 @@ std::vector<uint8_t> Scene::serialize() const {
     for (const auto& p : particles) {
         vecs.emplace_back(p.x, p.y);
     }
+    const auto& e = extents();
+    purrticle::Vector2 fb_extents(e.x, e.y);
     auto fb_particles = builder.CreateVectorOfStructs(vecs);
-    builder.Finish(purrticle::CreateScene(builder, fb_particles));
+    builder.Finish(purrticle::CreateScene(builder, &fb_extents, fb_particles));
     auto* buf = builder.GetBufferPointer();
     return {buf, buf + builder.GetSize()};
 }
@@ -40,7 +47,9 @@ Scene Scene::deserialize(const uint8_t* data, size_t size) {
     flatbuffers::Verifier verifier(data, size);
     verifier.VerifyBuffer<purrticle::Scene>();
     const auto* fb_scene = purrticle::GetScene(data);
-    Scene scene;
+    const auto fb_extents = fb_scene->extents();
+    auto e = Vector2(fb_extents->x(), fb_extents->y());
+    Scene scene(e);
     if (fb_scene->particles()) {
         scene.particles.reserve(fb_scene->particles()->size());
         for (const auto* p : *fb_scene->particles()) {
