@@ -29,21 +29,11 @@ int main(int argc, char* argv[]) {
 
     QTimer timer;
     QObject::connect(&timer, &QTimer::timeout, [&]() {
-        std::cout << "." << std::endl;
-
-        // const auto& item = qscene->items().first();
-        // const auto items = qscene->items();
-        // for (auto* item : items) {
-        //     item->setX(item->x() + 1);
-        // }
-        // if (!items.isEmpty()) {
-        //     const auto first = items.first();
-        //     if (first) {
-        //         first->setX(first->x() + 1);
-        //     }
-        // }
+        // std::cout << "." << std::endl;
+        scene.particles[0].x += 1;
+        viewer.update();
     });
-    timer.setInterval(10);
+    timer.setInterval(100);
     timer.start();
 
     return qapp.exec();

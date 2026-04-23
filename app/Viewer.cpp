@@ -15,9 +15,13 @@ Viewer::Viewer(const Scene* scene) : scene(scene), _qscene(new QGraphicsScene())
     qpartItems.resize(parts.size());
     for (std::size_t i = 0; i < parts.size(); ++i) {
         const auto& part = parts[i];
-        QGraphicsEllipseItem* item = _qscene->addEllipse(part.x, part.y, 3, 3);
-        item->setBrush(Qt::GlobalColor::magenta);
-        qpartItems[i] = item;
+        QGraphicsEllipseItem* qpartItem = _qscene->addEllipse(0, 0, 3, 3);
+        qpartItem->setPos(part.x, part.y);
+        const auto pos = qpartItem->pos();
+        float x = pos.x();
+        float y = pos.y();
+        qpartItem->setBrush(Qt::GlobalColor::magenta);
+        qpartItems[i] = qpartItem;
     }
 
     // QGraphicsRectItem* rect = qscene->addRect(50, 50, 100, 60);
@@ -32,7 +36,10 @@ void Viewer::update() {
     const auto parts = scene->particles;
     for (std::size_t i = 0; i < parts.size(); i++) {
         const auto part = parts[i];
-        const auto partItem = qpartItems[i];
-        partItem->setPos(part.x, part.y);
+        const auto qpartItem = qpartItems[i];
+        const auto pos = qpartItem->pos();
+        float x = pos.x();
+        float y = pos.y();
+        qpartItem->setPos(part.x, part.y);
     }
 }
