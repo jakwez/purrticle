@@ -23,14 +23,9 @@ int main(int argc, char* argv[]) {
     QGraphicsView* qview = new QGraphicsView(viewer.qscene());
     qview->setRenderHint(QPainter::Antialiasing);  // Makes things look smooth
     qview->setWindowTitle("Qt Graphics View Canvas");
-    qview->resize(500, 500);
+    int m = 20;
+    qview->resize(extents.x + m, extents.y + m);
     qview->show();
-
-    // for (int i = 0; i < scene.particles.size(); ++i) {
-    //     const Vector2& part = scene.particles[i];
-    //     QGraphicsEllipseItem* circle = qscene->addEllipse(part.x, part.y, 3, 3);
-    //     circle->setBrush(Qt::GlobalColor::magenta);
-    // }
 
     QTimer timer;
     QObject::connect(&timer, &QTimer::timeout, [&]() {

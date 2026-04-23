@@ -5,9 +5,10 @@
 #include <QGraphicsView>
 
 Viewer::Viewer(const Scene* scene) : scene(scene), _qscene(new QGraphicsScene()) {
-    _qscene->setSceneRect(0, 0, 500, 500);  // Define the boundaries
+    const auto& extents = scene->extents();
+    _qscene->setSceneRect(0, 0, extents.x, extents.y);  // Define the boundaries
 
-    QGraphicsRectItem* rect = _qscene->addRect(0, 0, 500, 500);
+    QGraphicsRectItem* rect = _qscene->addRect(0, 0, extents.x, extents.y);
     rect->setBrush(Qt::GlobalColor::lightGray);
 
     const auto parts = scene->particles;
