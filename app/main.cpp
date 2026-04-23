@@ -18,8 +18,9 @@ int main(int argc, char* argv[]) {
     Vector2 extents(500, 500);
     Scene scene = Scene::createRandom(extents, 100);
 
-    Viewer viewer(&scene);
+    Simulator simulator(&scene);
 
+    Viewer viewer(&scene);
     QGraphicsView* qview = new QGraphicsView(viewer.qscene());
     qview->setRenderHint(QPainter::Antialiasing);  // Makes things look smooth
     qview->setWindowTitle("Qt Graphics View Canvas");
@@ -30,10 +31,11 @@ int main(int argc, char* argv[]) {
     QTimer timer;
     QObject::connect(&timer, &QTimer::timeout, [&]() {
         // std::cout << "." << std::endl;
+        simulator.update(10.f / 1000.f);
         scene.particles[0].x += 1;
         viewer.update();
     });
-    timer.setInterval(100);
+    timer.setInterval(10);
     timer.start();
 
     return qapp.exec();

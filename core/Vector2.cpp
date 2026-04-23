@@ -15,14 +15,20 @@ Vector2& Vector2::add(const Vector2& v) {
     return *this;
 }
 
-Vector2& Vector2::randomize() {
-    x = dist(gen);
-    y = dist(gen);
+Vector2& Vector2::operator+(float scalar) {
+    x += scalar;
+    y += scalar;
     return *this;
 }
 
 Vector2& Vector2::operator*(float scalar) {
     x *= scalar;
     y *= scalar;
+    return *this;
+}
+
+Vector2& Vector2::randomize() {
+    x = dist(gen);
+    y = dist(gen);
     return *this;
 }

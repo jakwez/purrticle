@@ -7,5 +7,6 @@ class Simulator {
     void update(float deltaTime);
 
    private:
-    std::vector<Vector2> velocities;
+    Scene* scene;
+    std::vector<Vector2> velocities;  // in pixels/second
 };
