@@ -12,6 +12,7 @@ Simulator::Simulator(Scene* scene) : scene(scene) {
 }
 
 void Simulator::update(float deltaTimeSec) {
+    const auto& e = scene->extents();
     auto& parts = scene->particles;
     std::size_t i = 0;
     Vector2 deltaPos;
@@ -19,6 +20,21 @@ void Simulator::update(float deltaTimeSec) {
         deltaPos = velocities[i];
         deltaPos = deltaPos * deltaTimeSec;
         part.add(deltaPos);
+        if (part.x < 0.f) {
+            part.x *= -1.f;
+            velocities[i].x *= -1.f;
+        } else if (part.x > e.x) {
+            part.x = e.x - (part.x - e.x);
+            velocities[i].x *= -1.f;
+        }
+
+        if (part.y < 0.f) {
+            part.y *= -1.f;
+            velocities[i].y *= -1.f;
+        } else if (part.y > e.y) {
+            part.y = e.y - (part.y - e.y);
+            velocities[i].y *= -1.f;
+        }
         i++;
     }
 }

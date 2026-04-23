@@ -30,9 +30,7 @@ int main(int argc, char* argv[]) {
 
     QTimer timer;
     QObject::connect(&timer, &QTimer::timeout, [&]() {
-        // std::cout << "." << std::endl;
         simulator.update(10.f / 1000.f);
-        scene.particles[0].x += 1;
         viewer.update();
     });
     timer.setInterval(10);
