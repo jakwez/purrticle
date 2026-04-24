@@ -1,4 +1,4 @@
-#include "Client.h"
+#include "ClientApp.h"
 
 ClientApp::ClientApp(const QUrl& url, QObject* parent) : QObject(parent) {
     connect(&_webSocket, &QWebSocket::connected, this, &ClientApp::onConnected);

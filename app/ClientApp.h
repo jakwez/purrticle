@@ -7,7 +7,7 @@ class ClientApp : public QObject {
     Q_OBJECT
 
    public:
-    Client(const QUrl& url, QObject* parent = nullptr);
+    ClientApp(const QUrl& url, QObject* parent = nullptr);
 
    private slots:
     void onConnected();
