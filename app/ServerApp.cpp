@@ -67,5 +67,5 @@ void ServerApp::onDisconnected() {
         return;
     }
     _sockets.erase(it);
-    delete socket;
+    socket->deleteLater();
 }
