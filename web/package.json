@@ -1,0 +1,16 @@
+{
+  "name": "purrticle-web",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "generate": "flatc --ts -o src/generated ../core/schema/scene.fbs"
+  },
+  "dependencies": {
+    "flatbuffers": "^25.2.10"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  }
+}

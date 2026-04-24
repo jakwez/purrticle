@@ -7,3 +7,6 @@ CMakeUserPresets.json
 coverage.info
 coverage_filtered.info
 .claude
+web/node_modules/
+web/dist/
+web/src/generated/
