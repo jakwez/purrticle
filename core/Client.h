@@ -1,6 +1,8 @@
 #pragma once
 #include "Scene.h"
 
+namespace Core {
+
 class Client {
    public:
     Client();
@@ -9,3 +11,5 @@ class Client {
    private:
     Scene scene;
 };
+
+}

@@ -1,6 +1,8 @@
 #pragma once
 #include "Scene.h"
 
+namespace Core {
+
 class Simulator {
    public:
     Simulator(Scene* scene);
@@ -10,3 +12,5 @@ class Simulator {
     Scene* scene;
     std::vector<Vector2> velocities;  // in pixels/second
 };
+
+}

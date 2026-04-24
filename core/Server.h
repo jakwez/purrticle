@@ -1,6 +1,8 @@
 #pragma once
 #include "Simulator.h"
 
+namespace Core {
+
 class Server {
    public:
     Server();
@@ -10,3 +12,5 @@ class Server {
     Scene scene;
     Simulator simulator;
 };
+
+}

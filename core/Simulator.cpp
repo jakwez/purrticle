@@ -1,5 +1,7 @@
 #include "Simulator.h"
 
+namespace Core {
+
 Simulator::Simulator(Scene* scene) : scene(scene) {
     const auto parts = scene->particles;
     velocities.reserve(parts.size());
@@ -37,4 +39,6 @@ void Simulator::update(float deltaTimeSec) {
         }
         i++;
     }
+}
+
 }

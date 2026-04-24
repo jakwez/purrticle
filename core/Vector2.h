@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Core {
+
 class Vector2 {
    public:
     float x{0};
@@ -17,3 +19,5 @@ class Vector2 {
     /// @brief randomize x and y to the [0..1] range
     Vector2& randomize();
 };
+
+}

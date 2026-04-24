@@ -6,12 +6,12 @@ class QGraphicsItem;
 
 class Viewer {
    public:
-    Viewer(const Scene* scene);
+    Viewer(const Core::Scene* scene);
     void update();
     QGraphicsScene* qscene() { return _qscene; }
 
    private:
-    const Scene* scene;
+    const Core::Scene* scene;
     QGraphicsScene* _qscene;
     std::vector<QGraphicsItem*> qpartItems;
 };

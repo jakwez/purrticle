@@ -4,14 +4,12 @@
 
 #include "scene_generated.h"
 
-Scene::Scene(const Vector2& extents) : _extents(extents) {
-    //
-}
+namespace Core {
+
+Scene::Scene(const Vector2& extents) : _extents(extents) {}
 
 Scene Scene::createRandom(const Vector2& extents, size_t numParticles) {
-    std::random_device rd;
-    // std::mt19937 gen(1850103);
-    std::mt19937 gen(rd());
+    std::mt19937 gen(std::random_device{}());
     std::uniform_real_distribution distX(0.f, extents.x);
     std::uniform_real_distribution distY(0.f, extents.y);
     Scene scene(extents);
@@ -57,4 +55,6 @@ Scene Scene::deserialize(const std::vector<uint8_t>& data) {
         }
     }
     return scene;
+}
+
 }

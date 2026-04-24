@@ -4,6 +4,8 @@
 
 #include "Vector2.h"
 
+namespace Core {
+
 class Scene {
    public:
     Scene(const Vector2& extents);
@@ -17,3 +19,5 @@ class Scene {
    private:
     Vector2 _extents;
 };
+
+}

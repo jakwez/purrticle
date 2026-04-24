@@ -4,12 +4,12 @@
 #include <QtWebSockets/QWebSocket>
 #include <QtWebSockets/QWebSocketServer>
 
-class Server : public QObject {
+class ServerApp : public QObject {
     Q_OBJECT
 
    public:
-    Server(quint16 port, QObject* parent = nullptr);
-    ~Server();
+    ServerApp(quint16 port, QObject* parent = nullptr);
+    ~ServerApp();
 
    private slots:
     void onNewConnection();
@@ -17,6 +17,7 @@ class Server : public QObject {
     void onDisconnected();
 
    private:
-    QWebSocketServer* _server;
+    // Core::Server _server;
+    QWebSocketServer* _socketServer;
     std::vector<QWebSocket*> _sockets;
 };

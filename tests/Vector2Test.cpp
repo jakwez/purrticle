@@ -2,6 +2,8 @@
 
 #include "Vector2.h"
 
+using namespace Core;
+
 TEST(Vector2Test, DefaultConstructor) {
     Vector2 v1;
     EXPECT_EQ(v1.x, 0);

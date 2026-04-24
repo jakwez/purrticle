@@ -3,7 +3,7 @@
 #include <QObject>
 #include <QtWebSockets/QWebSocket>
 
-class Client : public QObject {
+class ClientApp : public QObject {
     Q_OBJECT
 
    public:
