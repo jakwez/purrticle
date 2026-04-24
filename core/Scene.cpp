@@ -23,7 +23,7 @@ Scene Scene::createRandom(const Vector2& extents, size_t numParticles) {
     }
 
     auto data = scene.serialize();
-    Scene scene2 = deserialize(data.data(), data.size());
+    Scene scene2 = deserialize(data);
 
     return scene2;
 }
@@ -43,10 +43,10 @@ std::vector<uint8_t> Scene::serialize() const {
     return {buf, buf + builder.GetSize()};
 }
 
-Scene Scene::deserialize(const uint8_t* data, size_t size) {
-    flatbuffers::Verifier verifier(data, size);
+Scene Scene::deserialize(const std::vector<uint8_t>& data) {
+    flatbuffers::Verifier verifier(data.data(), data.size());
     verifier.VerifyBuffer<purrticle::Scene>();
-    const auto* fb_scene = purrticle::GetScene(data);
+    const auto* fb_scene = purrticle::GetScene(data.data());
     const auto fb_extents = fb_scene->extents();
     auto e = Vector2(fb_extents->x(), fb_extents->y());
     Scene scene(e);

@@ -12,7 +12,7 @@ class Scene {
     static Scene createRandom(const Vector2& extents, size_t numParticles);
 
     std::vector<uint8_t> serialize() const;
-    static Scene deserialize(const uint8_t* data, size_t size);
+    static Scene deserialize(const std::vector<uint8_t>& data);
 
    private:
     Vector2 _extents;

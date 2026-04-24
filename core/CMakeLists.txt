@@ -18,6 +18,10 @@ add_library(purrticle_core STATIC
     Vector2.cpp
     Scene.cpp
     Simulator.cpp
+    Server.cpp
+    Server.h
+    Client.cpp
+    Client.h
 )
 
 add_dependencies(purrticle_core flatbuffers_generated)

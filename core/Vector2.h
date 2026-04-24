@@ -12,6 +12,7 @@ class Vector2 {
 
     Vector2& operator+(float scalar);
     Vector2& operator*(float scalar);
+    bool operator==(const Vector2& other) const;
 
     /// @brief randomize x and y to the [0..1] range
     Vector2& randomize();
