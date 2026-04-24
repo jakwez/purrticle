@@ -13,4 +13,4 @@ class Simulator {
     std::vector<Vector2> velocities;  // in pixels/second
 };
 
-}
+}  // namespace Core

@@ -6,7 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "program": "${workspaceFolder}/build/debug/app/purrticle",
-      "args": [],
+      // "args": ["--server"],
+      "args":[],
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "Build debug"
     },

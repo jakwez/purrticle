@@ -7,32 +7,42 @@
 #include <string>
 
 #include "Client.h"
+#include "ClientApp.h"
 #include "Scene.h"
 #include "Server.h"
+#include "ServerApp.h"
 #include "Simulator.h"
 #include "Viewer.h"
 
-using namespace Core;
-
 static bool hasArg(int argc, char* argv[], const std::string& flag) {
-    return std::any_of(argv + 1, argv + argc,
-                       [&](const char* arg) { return arg == flag; });
+    return std::any_of(argv + 1, argv + argc, [&](const char* arg) { return arg == flag; });
 }
 
 int main(int argc, char* argv[]) {
     QApplication qapp(argc, argv);
 
-    Vector2 extents(500, 500);
-    Scene scene = Scene::createRandom(extents, 100);
+    QString title = "Purrticle";
+    Core::Scene* scene = nullptr;
+    ServerApp* server = nullptr;  // not great!
+    ClientApp* client = nullptr;  // not great!
+    if (hasArg(argc, argv, "--server")) {
+        server = new ServerApp(12345, &qapp);
+        scene = &(server->server().scene());
+        title += " - server";
+    } else {
+        QUrl url("ws://localhost:12345");
+        client = new ClientApp(url);
+        scene = &(client->client().scene());
+        title += " - client";
+    }
 
-    Simulator simulator(&scene);
-
-    Viewer viewer(&scene);
+    Viewer viewer(scene);
     QGraphicsView* qview = new QGraphicsView(viewer.qscene());
     qview->setRenderHint(QPainter::Antialiasing);
-    qview->setWindowTitle("Purrticle");
     int m = 20;
-    qview->resize(extents.x + m, extents.y + m);
+    Core::Vector2 e = scene->extents();
+    qview->setWindowTitle(title);
+    qview->resize(e.x + m, e.y + m);
     qview->show();
 
     QElapsedTimer elapsedTimer;
@@ -41,10 +51,7 @@ int main(int argc, char* argv[]) {
     QObject::connect(&timer, &QTimer::timeout, [&]() {
         qint64 deltaTimeMs = elapsedTimer.restart();
         float deltaTimeSec = static_cast<float>(deltaTimeMs) / 1000.f;
-        simulator.update(deltaTimeSec);
         viewer.update();
-
-        auto data = scene.serialize();
     });
     timer.setInterval(10);
     timer.start();

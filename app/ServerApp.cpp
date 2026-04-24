@@ -1,5 +1,6 @@
 #include "ServerApp.h"
 
+#include <QObject>
 #include <algorithm>
 
 ServerApp::ServerApp(quint16 port, QObject* parent) : QObject(parent) {
@@ -10,6 +11,10 @@ ServerApp::ServerApp(quint16 port, QObject* parent) : QObject(parent) {
     } else {
         qFatal("Failed to start server!");
     }
+    _elapsedTimer.start();
+    connect(&_timer, &QTimer::timeout, this, &ServerApp::onTimerTimeout);
+    _timer.setInterval(50);
+    _timer.start();
 }
 
 ServerApp::~ServerApp() {
@@ -18,6 +23,16 @@ ServerApp::~ServerApp() {
         delete socket;
     }
     _sockets.clear();  // does closing the server
+}
+
+void ServerApp::onTimerTimeout() {
+    qint64 deltaTimeMs = _elapsedTimer.restart();
+    float deltaTimeSec = static_cast<float>(deltaTimeMs) / 1000.f;
+    auto data = _server.update(deltaTimeSec);
+    QByteArray qdata = QByteArray(reinterpret_cast<const char*>(data.data()), static_cast<int>(data.size()));  // TODO!
+    for (auto& socket : _sockets) {
+        socket->sendBinaryMessage(qdata);
+    }
 }
 
 void ServerApp::onNewConnection() {
@@ -41,7 +56,7 @@ void ServerApp::onTextMessageReceived(QString message) {
         return;
     }
     qDebug() << "Server received:" << message;
-    socket->sendTextMessage("Echo: " + message);
+    // socket->sendTextMessage("Echo: " + message);
 }
 
 void ServerApp::onDisconnected() {

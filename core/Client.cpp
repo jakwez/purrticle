@@ -4,17 +4,19 @@ namespace Core {
 
 const Vector2 extents(500, 500);
 
-Client::Client() : scene(extents) {}
+Client::Client() : _scene(extents) {
+    _scene.particles.resize(100);  // TODO!
+}
 
 void Client::update(float deltaTimeSec, const std::vector<uint8_t>& data) {
     Scene temp = Scene::deserialize(data);
-    if (temp.extents() != scene.extents()) {
+    if (temp.extents() != _scene.extents()) {
         return;
     }
-    if (temp.particles.size() != scene.particles.size()) {
+    if (temp.particles.size() != _scene.particles.size()) {
         return;
     }
-    scene.particles = std::move(temp.particles);
+    _scene.particles = std::move(temp.particles);
 }
 
-}
+}  // namespace Core
